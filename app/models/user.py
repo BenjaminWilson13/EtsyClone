@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     products = db.relationship("Product", back_populates="owner", cascade="delete-orphan, all")
-    shopping_cart = db.relationship("Product", back_populates="in_cart", secondary="shopping_carts")
+    shopping_cart = db.relationship("Product", back_populates="in_cart", secondary=add_prefix_for_prod("shopping_carts"))
     comments = db.relationship("Comment", back_populates="user")
 
 

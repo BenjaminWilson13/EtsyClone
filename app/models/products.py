@@ -18,7 +18,7 @@ class Product(db.Model):
     image_url = db.Column(db.String, default="https://cdn.discordapp.com/attachments/196747874552381440/1118291733785088061/box-carton-delivery-line-style-icon-free-vector.png")
 
     owner = db.relationship("User", back_populates="products")
-    in_cart = db.relationship("User", back_populates="shopping_cart", secondary="shopping_carts")
+    in_cart = db.relationship("User", back_populates="shopping_cart", secondary=add_prefix_for_prod("shopping_carts"))
     comments = db.relationship("Comment", back_populates="product", cascade="delete-orphan, all")
 
 
