@@ -1,7 +1,7 @@
 from .db import db
 from .user import User
-from .comments import Comment
 from .products import Product
+from .comments import Comment
 from .shopping_cart import ShoppingCart
 
 
