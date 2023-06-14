@@ -17,3 +17,12 @@ class Comment(db.Model):
 
     product = db.relationship("Product", back_populates="comments")
     user = db.relationship("User", back_populates="comments")
+
+    def to_dict(self): 
+        return {
+            "id": self.id, 
+            "user_id": self.user_id, 
+            "product_id": self.product_id, 
+            "rating": self.rating, 
+            "test": self.text
+        }

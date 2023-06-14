@@ -5,3 +5,63 @@
 .hidden {
   display: none;
 }
+
+.nav-box {
+  display: flex; 
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  width: 1024px;
+  margin-top: 2rem;
+}
+
+.site-logo {
+  color: orangered;
+}
+
+.search-box {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: 30px;
+  padding-left: 15px;
+}
+
+.log-button {
+  width: max-content; 
+  height: min-content;  
+  background-color:transparent; 
+  border: none;
+}
+
+.log-button:hover {
+  color: orangered; 
+  cursor: pointer;
+}
+
+.nav-button-box {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem; 
+}
+
+.links-box {
+  width: 1024px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.category-nav-link {
+  text-decoration: none;
+  color: black;
+}
+
+.category-nav-link:hover {
+  color: orangered;
+}
+
+.line-break {
+  width: 100%;
+  border-bottom: 2px darkgray solid;
+}

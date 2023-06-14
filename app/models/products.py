@@ -27,5 +27,9 @@ class Product(db.Model):
             "id": self.id, 
             "name": self.name, 
             "price": self.price, 
-            "description": self.description
+            "description": self.description, 
+            "category": self.category, 
+            "owner_id": self.owner_id, 
+            "image_url": self.image_url,
+            "owner_username": self.owner.username
         }

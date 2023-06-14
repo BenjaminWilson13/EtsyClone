@@ -1,0 +1,55 @@
+.splash-page-product-box {
+    display: flex;
+    flex-direction: row;
+    max-width: 1224px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.product-box {
+    height: 200px;
+    width: 200px;
+    position: relative; 
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product-box:hover {
+    box-shadow: 10px 5px 5px rgb(100, 100, 100);
+    z-index: 2;
+}
+
+.test {
+    position: absolute;
+}
+
+.element-inner {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px 10px;
+}
+
+.image-inner {
+    position: absolute;
+    height: 200px;
+    width: auto;
+}
+
+.cover-inner {
+    position: absolute; 
+    height: 100%;
+    width: 100%;
+    background-color: rgb(214, 214, 214);
+    opacity: 75%;
+}
+
+.cover-inner > p {
+    position: relative;
+    top: 25px; 
+    left: 25px;
+}
+
