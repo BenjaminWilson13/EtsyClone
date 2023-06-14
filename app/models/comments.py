@@ -24,5 +24,6 @@ class Comment(db.Model):
             "user_id": self.user_id, 
             "product_id": self.product_id, 
             "rating": self.rating, 
-            "test": self.text
+            "text": self.text,
+            "owner_username": self.user.username
         }

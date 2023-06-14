@@ -27,7 +27,7 @@ export default function SplashPage() {
                 }} onMouseLeave={() => {
                     const element = document.getElementById(`product-${product.id}`)
                     element.className = 'hidden'
-                }} onClick={() => history.push(`/products/${product.id}`)}>
+                }} onClick={() => history.push(`/products/${product.id}/display`)}>
                     <img className='image-inner' src={product.image_url} />
                     <div className='element-inner'>${product.price}</div>
                     <div id={`product-${product.id}`} className='hidden'><p>Sold by: {product.owner_username}</p></div>

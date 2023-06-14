@@ -33,3 +33,16 @@ class Product(db.Model):
             "image_url": self.image_url,
             "owner_username": self.owner.username
         }
+    
+    def to_dict_detail(self): 
+        return {
+            "id": self.id, 
+            "name": self.name, 
+            "price": self.price, 
+            "description": self.description, 
+            "category": self.category, 
+            "owner_id": self.owner_id, 
+            "image_url": self.image_url,
+            "owner_username": self.owner.username, 
+            "comments": {comment.id: comment.to_dict() for comment in self.comments}
+        }

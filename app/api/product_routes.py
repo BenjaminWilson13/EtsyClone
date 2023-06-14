@@ -17,6 +17,11 @@ def get_products_by_category(category):
     products = Product.query.filter(Product.category == category).all()
     return {product.id: product.to_dict() for product in products}
 
+@product_routes.route('/<int:product_id>')
+def get_product_detail(product_id): 
+    product = Product.query.get(product_id)
+    return product.to_dict_detail(); 
+
 
 @login_required
 @product_routes.route('/', methods=["POST"])
