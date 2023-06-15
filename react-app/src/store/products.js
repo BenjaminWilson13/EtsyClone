@@ -1,5 +1,8 @@
 const GET_ALL_PRODUCTS = "products/GET_ALL_PRODUCTS"
 const GET_SPECIFIC_PRODUCT = "products/GET_SPECIFIC_PRODUCT"
+const PUT_PRODUCT = 'products/PUT_PRODUCT'
+const DELETE_PRODUCT = 'products/DELETE_PRODUCT'
+const CREATE_PRODUCT = 'products/CREATE_PRODUCT'
 
 const getAllProducts = (data) => ({
     type: GET_ALL_PRODUCTS, 
@@ -8,6 +11,20 @@ const getAllProducts = (data) => ({
 
 const getSpecificProduct = (data) => ({
     type: GET_SPECIFIC_PRODUCT, 
+    payload: data
+})
+
+const editProduct = (data) => ({
+    type: PUT_PRODUCT, 
+    payload: data
+})
+
+const deleteSpecificProduct = () => ({
+    type: DELETE_PRODUCT
+})
+
+const createNewProduct = (data) => ({
+    type: CREATE_PRODUCT, 
     payload: data
 })
 
@@ -33,6 +50,49 @@ export const fetchSpecificProduct = (productId) => async (dispatch) => {
     }
 }
 
+export const putEditProduct = (body) => async (dispatch) => {
+    const res = await fetch(`/api/products/${body.id}`, {
+        method:"PUT", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(body)
+    })
+    const data = await res.json(); 
+    if (res.ok) {
+        dispatch(editProduct(data)); 
+        return null; 
+    } else {
+        return data;
+    }
+}
+
+export const deleteProduct = (productId) => async (dispatch) => {
+    const res = await fetch(`/api/products/${productId}`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        dispatch(deleteSpecificProduct()); 
+        return null; 
+    } else {
+        const data = await res.json()
+        return data; 
+    }
+}
+
+export const postNewProduct = (body) => async (dispatch) => {
+    const res = await fetch(`/api/products/`, {
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(body)
+    })
+    const data = await res.json(); 
+    if (res.ok) {
+        dispatch(createNewProduct(data))
+        return data.id
+    } else {
+        return data
+    }
+}
+
 const initialState = {
     AllProducts: {}, 
     CategoryProducts: {}, 
@@ -46,7 +106,16 @@ export default function reducer(state = initialState, action) {
             newState.AllProducts = {...action.payload}; 
             return newState; 
         case GET_SPECIFIC_PRODUCT: 
-            newState.SpecificProduct = {...action.payload}
+            newState.SpecificProduct = {...action.payload};
+            return newState; 
+        case PUT_PRODUCT: 
+            newState.SpecificProduct = {...action.payload};
+            return newState; 
+        case DELETE_PRODUCT: 
+            newState.SpecificProduct = {}; 
+            return newState; 
+        case CREATE_PRODUCT: 
+            newState.SpecificProduct = {...action.payload}; 
             return newState; 
         default: 
             return state; 

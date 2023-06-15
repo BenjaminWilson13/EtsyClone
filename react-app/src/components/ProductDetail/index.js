@@ -30,7 +30,7 @@ export default function ProductDetail() {
                     <p>Category: {product.category}</p>
                     <p>Description: {product.description}</p>
                     <p>Custom Creator: {product.owner_username}</p>
-                    {sessionUser && product.owner_id === sessionUser.id ? <OpenModalButton className='edit-product-button' buttonText="Edit" modalComponent={<EditProductModal />} /> : null}
+                    {sessionUser && product.owner_id === sessionUser.id ? <OpenModalButton className='edit-product-button' buttonText="Edit" modalComponent={<EditProductModal newProduct={false}/>} /> : null}
                 </div>
             </div>
             <div className='specific-product-lower'>

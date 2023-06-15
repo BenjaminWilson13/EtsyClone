@@ -18,9 +18,9 @@ def user_exists(form, field):
 
 
 class ProductForm(FlaskForm): 
-    name = StringField('name', validators=[DataRequired(), name_exists])
-    price = FloatField('price', validators=[DataRequired()])
-    description = StringField('description', validators=[DataRequired(), Length(min=25, max=2000, message="Description must be between 25 and 2000 characters long")])
-    category = StringField('category', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired(message="Name is required"), name_exists])
+    price = FloatField('price', validators=[DataRequired(message="Price is required")])
+    description = StringField('description', validators=[DataRequired(message="Description must be between 25 and 2000 characters"), Length(min=25, max=2000, message="Description must be between 25 and 2000 characters long")])
+    category = StringField('category', validators=[DataRequired(message="Category is required")])
     owner_id = IntegerField('owner', validators=[DataRequired(), user_exists])
-    image_url = StringField('image', validators=[URL()])
+    image_url = StringField('image', validators=[URL(message="Invalid URL")])

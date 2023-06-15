@@ -30,6 +30,7 @@ def post_new_product():
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate(): 
+        print('validated')
         res = Product(
             name = form.data['name'],
             price = form.data['price'],
@@ -41,9 +42,10 @@ def post_new_product():
 
         db.session.add(res)
         db.session.commit()
-        return res.to_dict()
+        return res.to_dict_detail()
     else: 
         errors = form.errors
+        print(errors)
         return errors, 400
 
 
@@ -61,11 +63,13 @@ def edit_product(product_id):
         image_url: string, url
         }
     '''
+    print('here')
     product = Product.query.get(product_id)
     if product.owner_id != current_user.id: 
         return {'errors': ['Only the product owner may edit']}, 403
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate(): 
         product.name = form.data['name']
         product.price = form.data['price']
@@ -73,16 +77,17 @@ def edit_product(product_id):
         product.category = form.data['category']
         product.image_url = form.data['image_url']
         db.session.commit()
-        return product.to_dict()
+        return product.to_dict_detail()
     else: 
         errors = form.errors
+        print(errors)
         return errors, 400
 
 @login_required    
 @product_routes.route('/<int:product_id>', methods=["DELETE"])
 def delete_product(product_id):
     product = Product.query.get(product_id)
-    if current_user.id != product_id.owner_id: 
+    if current_user.id != product.owner_id: 
         return {'errors': ["Only the owner of the product my delete it"]}
     else: 
         db.session.delete(product)

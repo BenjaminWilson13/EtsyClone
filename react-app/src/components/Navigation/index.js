@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton';
 import './Navigation.css';
 import LoginFormModal from '../LoginFormModal';
 import { logout } from "../../store/session";
+import EditProductModal from '../EditProductModal/index'
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
@@ -33,6 +34,7 @@ function Navigation({ isLoaded }) {
 							modalComponent={<LoginFormModal />} />
 					}
 					<button className='log-button'>Cart</button>
+					<OpenModalButton className='log-button' buttonText="New Product" modalComponent={<EditProductModal newProduct={true} />} />
 				</div>
 			</div>
 			<div className='links-box'>{categories.map((category) => {
