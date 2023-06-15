@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from flask_login import login_required, current_user
 
 
 class Product(db.Model):
@@ -46,3 +47,5 @@ class Product(db.Model):
             "owner_username": self.owner.username, 
             "comments": {comment.id: comment.to_dict() for comment in self.comments}
         }
+    
+    

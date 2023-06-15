@@ -21,6 +21,9 @@ def seed_shopping_carts():
         }, {
             "user_id": 3, 
             "product_id": 2
+        }, {
+            "user_id": 1, 
+            "product_id": 2
         }
     ]: 
         db.session.add(ShoppingCart(**cart))

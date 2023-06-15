@@ -8,6 +8,8 @@ import { useModal } from '../../context/Modal';
 
 export default function ShoppingCart() {
     return (
-        <h1>Heyo</h1>
+        <div className='shopping-cart-wrapper'>
+            
+        </div>
     ) 
 }
