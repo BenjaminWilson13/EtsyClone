@@ -7,10 +7,12 @@ import './Navigation.css';
 import LoginFormModal from '../LoginFormModal';
 import { logout } from "../../store/session";
 import EditProductModal from '../EditProductModal/index'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const dispatch = useDispatch();
+	const history = useHistory(); 
 	const handleLogout = (e) => {
 		e.preventDefault();
 		dispatch(logout());
@@ -33,7 +35,7 @@ function Navigation({ isLoaded }) {
 							buttonText="Log In"
 							modalComponent={<LoginFormModal />} />
 					}
-					<button className='log-button'>Cart</button>
+					<button className='log-button' onClick={() => history.push('/shoppingCart')}>Cart</button>
 					<OpenModalButton className='log-button' buttonText="New Product" modalComponent={<EditProductModal newProduct={true} />} />
 				</div>
 			</div>

@@ -65,13 +65,14 @@ export default function EditProductModal({ newProduct }) {
     async function handleDelete(e) {
         e.preventDefault();
         console.log("deleted")
-        const data = await dispatch(deleteProduct(product.id))
-        if (data) {
-            setErrors(data)
-        } else {
-            history.push("/")
-            closeModal();
-        }
+        dispatch(deleteProduct(product.id)).then((data) => {
+            if (data) {
+                setErrors(data)
+            } else {
+                history.push("/")
+                closeModal();
+            }
+        })
     }
 
     return (
@@ -110,7 +111,7 @@ export default function EditProductModal({ newProduct }) {
                     Display image URL:
                     <input type='URL' value={image_url} onChange={(e) => setImage_url(e.target.value)} />
                 </label>
-                <button type='sumbit'>Submit</button>
+                <button type='submit'>Submit</button>
             </form>
             {!newProduct ? <button onClick={handleDelete}>Delete</button> : null}
         </div>

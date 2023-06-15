@@ -7,6 +7,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import SplashPage from "./components/SplashPage/index.js";
 import ProductDetail from "./components/ProductDetail";
+import ShoppingCart from "./components/ShoppingCart";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,10 +21,13 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path="/:category" >
-            <SplashPage />
+          <Route exact path='/shoppingCart'>
+            <ShoppingCart />
           </Route>
           <Route exact path="/" >
+            <SplashPage />
+          </Route>
+          <Route exact path="/:category" >
             <SplashPage />
           </Route>
           <Route exact path='/products/:productId/display'>
