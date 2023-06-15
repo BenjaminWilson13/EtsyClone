@@ -26,9 +26,10 @@ def add_item_to_cart():
     '''
     data = request.get_json()
     quantity = data['quantity']
+    print(quantity)
 
     count = 0
-    while count < quantity: 
+    while count < int(quantity): 
         item = ShoppingCart(
                     product_id=data['product_id'], 
                     user_id=current_user.id

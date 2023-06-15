@@ -1,0 +1,25 @@
+.shopping-cart-wrapper {
+    width: 100%;
+    max-width: 1224px;
+}
+
+.cart-items {
+    width: 100%; 
+}
+
+.shopping-cart-upper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.cart-item-box {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.product-image {
+    max-width: 250;
+    height: auto;
+}
