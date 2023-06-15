@@ -112,7 +112,7 @@ export default function EditProductModal({ newProduct }) {
                 </label>
                 <button type='sumbit'>Submit</button>
             </form>
-            {newProduct ? <button onClick={handleDelete}>Delete</button> : null}
+            {!newProduct ? <button onClick={handleDelete}>Delete</button> : null}
         </div>
     )
 }
