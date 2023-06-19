@@ -107,6 +107,18 @@ export const postNewComment = (body) => async (dispatch) => {
     }
 }
 
+export const deleteComment = (commentId) =>  async (dispatch) => {
+    const res = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE"
+    })
+    const data = res.json(); 
+    if (res.ok) {
+        return null; 
+    } else {
+        return data; 
+    }
+}
+
 const initialState = {
     AllProducts: {}, 
     CategoryProducts: {}, 

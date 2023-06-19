@@ -29,10 +29,19 @@ def add_comment():
         )
         db.session.add(res)
         db.session.commit()
-        return {'message': ['Sucessfully added']}
+        return {'message': ['successfully added']}
     else: 
         errors = form.errors
         return errors, 400
     
 
-    
+@comment_routes.route('/<int:comment_id>', methods=["DELETE"])
+def delete_comment(comment_id): 
+
+    comment = Comment.query.get(comment_id)
+    if comment.user_id == current_user.id: 
+        db.session.delete(comment)
+        db.session.commit()
+        return {"message": ["Comment deleted successfully"]}
+    else: 
+        return {"message": ["Only the creator can delete this comment"]}, 401

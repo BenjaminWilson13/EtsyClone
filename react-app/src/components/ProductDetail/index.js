@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSpecificProduct } from '../../store/products';
+import { deleteComment, fetchSpecificProduct } from '../../store/products';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import "./ProductDetail.css"
 import OpenModalButton from '../OpenModalButton';
@@ -41,6 +41,18 @@ export default function ProductDetail() {
 
     }
 
+    function handleCommentDelete(e) {
+        e.preventDefault(); 
+        console.log(e.target.id)
+        dispatch(deleteComment(e.target.id)).then((data) => {
+            if (data) {
+                setErrors(data)
+            } else {
+                dispatch(fetchSpecificProduct(productId))
+            }
+        })
+    }
+
     if (!product || product.id !== parseInt(productId)) return <div>loading...</div>
 
     return (
@@ -68,7 +80,7 @@ export default function ProductDetail() {
                             </label>
                             <button>Add to Cart</button>
                         </form> : null}
-                    {addedToCart ? <p>You have added {quantity} to your cart!</p> : null} 
+                    {addedToCart ? <p>You have added {quantity} to your cart!</p> : null}
                 </div>
             </div>
             <div className='specific-product-lower'>
@@ -80,6 +92,9 @@ export default function ProductDetail() {
                             <p>Comment by: {comment.owner_username}</p>
                             <p>Rating: {comment.rating}</p>
                             <p>{comment.text}</p>
+                            <form id={comment.id} onSubmit={handleCommentDelete}>
+                                {sessionUser && sessionUser.id === comment.user_id ? <button type='submit' > Delete Comment </button> : null}
+                            </form>
                         </div>
                     )
                 })}
