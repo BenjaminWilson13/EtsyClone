@@ -43,6 +43,8 @@ function SignupFormModal() {
 					<input
 						type="text"
 						value={email}
+						minLength='5'
+						maxLength='50'
 						onChange={(e) => setEmail(e.target.value)}
 						required
 					/>
@@ -52,6 +54,8 @@ function SignupFormModal() {
 					<input
 						type="text"
 						value={username}
+						minLength='5'
+						maxLength='50'
 						onChange={(e) => setUsername(e.target.value)}
 						required
 					/>
@@ -61,6 +65,8 @@ function SignupFormModal() {
 					<input
 						type="password"
 						value={password}
+						minLength='5'
+						maxLength='50'
 						onChange={(e) => setPassword(e.target.value)}
 						required
 					/>
@@ -70,6 +76,8 @@ function SignupFormModal() {
 					<input
 						type="password"
 						value={confirmPassword}
+						minLength='5'
+						maxLength='50'
 						onChange={(e) => setConfirmPassword(e.target.value)}
 						required
 					/>
