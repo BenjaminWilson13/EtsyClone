@@ -11,6 +11,7 @@ export default function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.user);
     const products = useSelector(state => state.cartItems.InCartItems);
     const [errors, setErrors] = useState(null);
+    const [quantity, setQuantity] = useState(null); 
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,7 +20,6 @@ export default function ShoppingCart() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const quantity = e.target.value;
         const product_id = e.target.id;
         const change = quantity - products[product_id].quantity;
         if (change > 0) {
@@ -93,14 +93,9 @@ export default function ShoppingCart() {
                                 <div className='cart-item-box-center'>
                                     <span>{product.name}</span> <br />
                                     <span>{product.category}</span> <br />
-                                    <form >
-                                        <select id={product.id} defaultValue={product.quantity} onChange={handleSubmit}>
-                                            {quantities.map((quantity) => {
-                                                return (
-                                                    <option value={quantity}>{quantity}</option>
-                                                )
-                                            })}
-                                        </select>
+                                    <form id={product.id} onSubmit={handleSubmit} >
+                                        <input type='number' max='99' min='1' id={product.id} defaultValue={product.quantity} onChange={(e) => setQuantity(e.target.value)} />
+                                        <button type='submit'>Update Quantity</button>
                                     </form>
                                     <button id={product.id} onClick={handleDelete}>Delete</button>
 

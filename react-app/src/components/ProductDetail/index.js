@@ -14,8 +14,8 @@ export default function ProductDetail() {
     const sessionUser = useSelector(state => state.session.user);
     const dispatch = useDispatch();
     const product = useSelector(state => state.products.SpecificProduct)
-    const [quantity, setQuantity] = useState(1); 
-    const [addedToCart, setAddedToCart] = useState(false); 
+    const [quantity, setQuantity] = useState(1);
+    const [addedToCart, setAddedToCart] = useState(false);
     const [errors, setErrors] = useState(null)
     console.log(productId)
     useEffect(() => {
@@ -23,10 +23,10 @@ export default function ProductDetail() {
     }, [dispatch])
     const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     function handleSubmit(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         console.log(quantity)
         const body = {
-            product_id: productId, 
+            product_id: productId,
             quantity
         }
 
@@ -34,8 +34,8 @@ export default function ProductDetail() {
             if (data) {
                 setErrors(data)
             } else {
-                dispatch(fetchAllShoppingCartItems()); 
-                setAddedToCart(true); 
+                dispatch(fetchAllShoppingCartItems());
+                setAddedToCart(true);
             }
         })
 
@@ -54,25 +54,26 @@ export default function ProductDetail() {
                     <p>Description: {product.description}</p>
                     <p>Custom Creator: {product.owner_username}</p>
                     {sessionUser && product.owner_id === sessionUser.id ? <OpenModalButton className='edit-product-button' buttonText="Edit" modalComponent={<EditProductModal newProduct={false} />} /> : null}
-                    <form id={product.id} onSubmit={handleSubmit}>
-                        <label>
-                            Quantity: 
-                            <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
-                                {quantities.map((quantity) => {
-                                    return (
-                                        <option value={quantity}>{quantity}</option>
-                                    )
-                                })}
-                            </select>
-                        </label>
-                        <button>Add to Cart</button>
-                    </form>
-                    {addedToCart ? <p>You have added {quantity} to your cart!</p> : null}
+                    {sessionUser ?
+                        <form id={product.id} onSubmit={handleSubmit}>
+                            <label>
+                                Quantity:
+                                <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
+                                    {quantities.map((quantity) => {
+                                        return (
+                                            <option value={quantity}>{quantity}</option>
+                                        )
+                                    })}
+                                </select>
+                            </label>
+                            <button>Add to Cart</button>
+                        </form> : null}
+                    {addedToCart ? <p>You have added {quantity} to your cart!</p> : null} 
                 </div>
             </div>
             <div className='specific-product-lower'>
                 <h2>Reviews: </h2>
-                {product.owner_id !== sessionUser.id ? <OpenModalButton buttonText="Add Review" modalComponent={<AddReviewModal />} /> : null}
+                {sessionUser && product.owner_id !== sessionUser.id ? <OpenModalButton buttonText="Add Review" modalComponent={<AddReviewModal />} /> : null}
                 {Object.values(product.comments).map((comment) => {
                     return (
                         <div key={comment.id} className='comment-box'>

@@ -69,6 +69,7 @@ def edit_product(product_id):
         return {'errors': ['Only the product owner may edit']}, 403
     form = ProductForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    form['id'].data = product.id
 
     if form.validate(): 
         product.name = form.data['name']

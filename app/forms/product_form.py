@@ -6,7 +6,7 @@ from app.models import Product, User
 def name_exists(form, field): 
     name = field.data
     product = Product.query.filter(Product.name == name).first()
-    if product: 
+    if product and product.id != form.id.data: 
         raise ValidationError("Product name already exists")
     
 def user_exists(form, field): 
@@ -24,3 +24,4 @@ class ProductForm(FlaskForm):
     category = StringField('category', validators=[DataRequired(message="Category is required")])
     owner_id = IntegerField('owner', validators=[DataRequired(), user_exists])
     image_url = StringField('image', validators=[URL(message="Invalid URL")])
+    id = IntegerField('productId')
