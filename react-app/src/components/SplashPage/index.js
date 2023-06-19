@@ -7,19 +7,34 @@ import './SplashPage.css'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function SplashPage() {
+    
     const sessionUser = useSelector(state => state.session.user);
     const { category } = useParams();
+    console.log(category)
     const history = useHistory(); 
     const dispatch = useDispatch();
-    const allProducts = useSelector(state => state.products.AllProducts)
+    const AllProducts = useSelector(state => state.products.AllProducts)
+    let allProducts = {}; 
+
     useEffect(() => {
         dispatch(fetchAllProducts())
     }, [dispatch])
 
-    if (!allProducts) return (<div className='splash-page-product-box'>Loading...</div>)
+    if (!AllProducts) return (<div className='splash-page-product-box'>Loading...</div>)
+
+    if (!category || category == 'All Products') {
+        allProducts = Object.values(AllProducts)
+    } else {
+        allProducts = Object.values(AllProducts).filter((product) => {
+            if (product.category == category) return true; 
+            else return false; 
+        })
+
+    }
+
 
     return (<div className='splash-page-product-box'>
-        {Object.values(allProducts).map((product) => {
+        {allProducts.map((product) => {
             return (
                 <div key={product.id} className='product-box' onMouseEnter={() => {
                     const element = document.getElementById(`product-${product.id}`)
@@ -29,7 +44,7 @@ export default function SplashPage() {
                     element.className = 'hidden'
                 }} onClick={() => history.push(`/products/${product.id}/display`)}>
                     <img className='image-inner' src={product.image_url} />
-                    <div className='element-inner'>${product.price}</div>
+                    <div className='element-inner'>${Number.parseFloat(product.price).toFixed(2)}</div>
                     <div id={`product-${product.id}`} className='hidden'><p>Sold by: {product.owner_username}</p></div>
                 </div>
             )

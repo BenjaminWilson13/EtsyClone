@@ -93,6 +93,20 @@ export const postNewProduct = (body) => async (dispatch) => {
     }
 }
 
+export const postNewComment = (body) => async (dispatch) => {
+    const res = await fetch('/api/comments/', {
+        method: "POST", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(body)
+    })
+    const data = await res.json(); 
+    if (res.ok) {
+        return null; 
+    } else {
+        return data; 
+    }
+}
+
 const initialState = {
     AllProducts: {}, 
     CategoryProducts: {}, 

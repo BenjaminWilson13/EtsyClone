@@ -8,18 +8,19 @@ import LoginFormModal from '../LoginFormModal';
 import { logout } from "../../store/session";
 import EditProductModal from '../EditProductModal/index'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import SignupFormModal from '../SignupFormModal';
 
 function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const dispatch = useDispatch();
-	const history = useHistory(); 
+	const history = useHistory();
 	const handleLogout = (e) => {
 		e.preventDefault();
 		dispatch(logout());
 	};
 
 	//categories: Outdoor, Artwork, Jewelry, Automotive, Electronic, Clothing, Collectable
-	const categories = ['Artwork', 'Automotive', 'Clothing', 'Collectable', 'Electronic', 'Jewelry', 'Outdoor']
+	const categories = ['All Products', 'Artwork', 'Automotive', 'Clothing', 'Collectable', 'Electronic', 'Jewelry', 'Outdoor']
 
 	return (
 		<>
@@ -28,15 +29,23 @@ function Navigation({ isLoaded }) {
 				<input className='search-box' type='text' placeholder='Search for Anything' />
 				<div className='nav-button-box'>
 					{sessionUser ?
-						<button className='log-button' onClick={handleLogout}>Sign Out</button>
+						<>
+							<button className='log-button' onClick={handleLogout}>Sign Out</button>
+							<button className='log-button' onClick={() => history.push('/shoppingCart')}>Cart</button>
+							<OpenModalButton className='log-button' buttonText="New Product" modalComponent={<EditProductModal newProduct={true} />} />
+						</>
 						:
-						<OpenModalButton
-							className="log-button"
-							buttonText="Log In"
-							modalComponent={<LoginFormModal />} />
+						<>
+							<OpenModalButton
+								className="log-button"
+								buttonText="Log In"
+								modalComponent={<LoginFormModal />} />
+							<OpenModalButton
+								className="log-button"
+								buttonText="Sign Up"
+								modalComponent={<SignupFormModal />} />
+						</>
 					}
-					<button className='log-button' onClick={() => history.push('/shoppingCart')}>Cart</button>
-					<OpenModalButton className='log-button' buttonText="New Product" modalComponent={<EditProductModal newProduct={true} />} />
 				</div>
 			</div>
 			<div className='links-box'>{categories.map((category) => {

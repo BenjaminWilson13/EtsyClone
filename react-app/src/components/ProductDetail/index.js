@@ -7,6 +7,7 @@ import "./ProductDetail.css"
 import OpenModalButton from '../OpenModalButton';
 import EditProductModal from '../EditProductModal';
 import { fetchAllShoppingCartItems, increaseProductQuantity } from '../../store/shoppingCart';
+import AddReviewModal from '../AddReviewModal';
 
 export default function ProductDetail() {
     const { productId } = useParams();
@@ -48,7 +49,7 @@ export default function ProductDetail() {
             <div className='specific-product-upper'>
                 <img src={product.image_url} />
                 <div className='product-upper-right'>
-                    <p>Price: {product.price}</p>
+                    <p>Price: ${Number(product.price).toFixed(2)}</p>
                     <p>Category: {product.category}</p>
                     <p>Description: {product.description}</p>
                     <p>Custom Creator: {product.owner_username}</p>
@@ -71,6 +72,7 @@ export default function ProductDetail() {
             </div>
             <div className='specific-product-lower'>
                 <h2>Reviews: </h2>
+                {product.owner_id !== sessionUser.id ? <OpenModalButton buttonText="Add Review" modalComponent={<AddReviewModal />} /> : null}
                 {Object.values(product.comments).map((comment) => {
                     return (
                         <div key={comment.id} className='comment-box'>

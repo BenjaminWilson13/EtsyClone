@@ -18,6 +18,6 @@ def product_exists(form, field):
 class CommentForm(FlaskForm): 
     user_id = IntegerField('user_id', validators=[DataRequired(), user_exists])
     product_id = IntegerField('product_id', validators=[DataRequired(), product_exists])
-    rating = FloatField('rating', validators=[DataRequired()])
+    rating = FloatField('rating', validators=[DataRequired(message='A rating is required')])
     text = StringField('Comment Text', validators=[Length(min=5, max=2000, message="Comments must be between 5 and 2000 characters long")])
     

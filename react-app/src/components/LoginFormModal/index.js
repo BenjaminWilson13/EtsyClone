@@ -17,9 +17,19 @@ function LoginFormModal() {
     if (data) {
       setErrors(data);
     } else {
-        closeModal()
+      closeModal()
     }
   };
+
+  async function demoLogIn(e) {
+    e.preventDefault();
+    const data = await dispatch(login('demo@aa.io', 'password'));
+    if (data) {
+      setErrors(data);
+    } else {
+      closeModal()
+    }
+  }
 
   return (
     <>
@@ -50,6 +60,7 @@ function LoginFormModal() {
         </label>
         <button type="submit">Log In</button>
       </form>
+            <button onClick={demoLogIn}>Demo</button>
     </>
   );
 }

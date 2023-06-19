@@ -106,8 +106,8 @@ export default function ShoppingCart() {
 
                                 </div>
                                 <div className='cart-item-box-right'>
-                                    <span>${product.price * product.quantity}</span> <br />
-                                    {product.quantity > 1 ? <span>(${product.price}each)</span> : null}
+                                    <span>${Number.parseFloat(product.price * product.quantity).toFixed(2)}</span> <br />
+                                    {product.quantity > 1 ? <span>(${Number.parseFloat(product.price).toFixed(2)}each)</span> : null}
                                 </div>
                             </div>
                         )
@@ -115,7 +115,7 @@ export default function ShoppingCart() {
                 </div>
                 <div>
                     <span>How you'll pay</span> <br />
-                    <span>Total Cost: ${total}</span>
+                    <span>Total Cost: ${Number.parseFloat(total).toFixed(2)}</span>
                 </div>
             </div>
         </div>
