@@ -15,7 +15,7 @@ export default function EditProductModal({ newProduct }) {
     const [name, setName] = useState(!newProduct ? product.name : '')
     const [price, setPrice] = useState(!newProduct ? product.price : '')
     const [description, setDescription] = useState(!newProduct ? product.description : '')
-    const [category, setCategory] = useState(!newProduct ? product.category : 'Outdoor')
+    const [category, setCategory] = useState(!newProduct ? product.category : 'Artwork')
     const [image_url, setImage_url] = useState(!newProduct ? product.image_url : '')
     const [errors, setErrors] = useState(null);
     const dispatch = useDispatch();
@@ -25,13 +25,7 @@ export default function EditProductModal({ newProduct }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const split = image_url.split('.')
-        const acceptedFormats = ['jpg', 'jpeg', 'png', 'gif']
-        if (!acceptedFormats.includes(split[split.length - 1])) {
-            console.log("hmm")
-            setErrors({ "error": ["Accepted image formats are jpg, jpeg, png, and gif"] })
-            return
-        }
+        
         const body = {
             name,
             price,
@@ -76,27 +70,28 @@ export default function EditProductModal({ newProduct }) {
     }
 
     return (
-        <div className='edit-product-modal-wrapper'>
-            <h1>Heyo</h1>
+        <div className="modal-wrapper">
+            <h1 className="form-title">List a new product for sale?</h1>
             <form onSubmit={handleSubmit} className='edit-product-form'>
-                <ul className="errors">
+                <ul className="errors-list">
                     {errors && Object.values(errors).map((error, idx) => (
                         <li key={idx}>{error}</li>
                     ))}
                 </ul>
-                <label>
+                <label className="form-label">
                     Product Name:
                     <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
                 </label>
-                <label>
+                <label className="form-label">
                     Price:
                     <input type='number' step={0.01} value={price} onChange={(e) => setPrice(e.target.value)} />
                 </label>
-                <label>
+                <label className="form-label">
                     Description:
-                    <textarea type='textarea' maxLength={2000} minLength={20} value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <textarea  className="form-label" type='textarea' maxLength={2000} minLength={20} value={description} onChange={(e) => setDescription(e.target.value)} />
+                    Up to 2000 characters
                 </label>
-                <label>
+                <label className="form-label">
                     Category:
                     <select name='category' value={category} onChange={(e) => setCategory(e.target.value)}>
                         {categories.map((category, idx) => {
@@ -107,9 +102,9 @@ export default function EditProductModal({ newProduct }) {
                         })}
                     </select>
                 </label>
-                <label>
-                    Display image URL:
-                    <input type='URL' value={image_url} onChange={(e) => setImage_url(e.target.value)} />
+                <label className="form-label">
+                    Display image:
+                    <input type='file' accept='image/*' onChange={(e) => setImage_url(e.target.files[0])} />
                 </label>
                 <button type='submit'>Submit</button>
             </form>

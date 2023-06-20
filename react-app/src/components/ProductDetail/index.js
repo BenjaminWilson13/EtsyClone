@@ -42,7 +42,7 @@ export default function ProductDetail() {
     }
 
     function handleCommentDelete(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         console.log(e.target.id)
         dispatch(deleteComment(e.target.id)).then((data) => {
             if (data) {
@@ -59,17 +59,24 @@ export default function ProductDetail() {
         <div className='specific-product-display-wrapper'>
             <h1>{product.name}</h1>
             <div className='specific-product-upper'>
-                <img src={product.image_url} />
+                <img className='specific-product-image' src={product.image_url} />
                 <div className='product-upper-right'>
-                    <p>Price: ${Number(product.price).toFixed(2)}</p>
-                    <p>Category: {product.category}</p>
-                    <p>Description: {product.description}</p>
-                    <p>Custom Creator: {product.owner_username}</p>
-                    {sessionUser && product.owner_id === sessionUser.id ? <OpenModalButton className='edit-product-button' buttonText="Edit" modalComponent={<EditProductModal newProduct={false} />} /> : null}
+
+
+
+                    <p className='specific-product-category-label'>Price: </p>
+                    <p className='specific-product-info'>${Number(product.price).toFixed(2)}</p>
+                    <p className='specific-product-category-label'>Category: </p>
+                    <p className='specific-product-info'>{product.category}</p>
+                    <p className='specific-product-category-label'>Description: </p>
+                    <p className='specific-product-info'>{product.description}</p>
+                    <p className='specific-product-category-label'>Custom Creator: </p>
+                    <p className='specific-product-info'>{product.owner_username}</p>
+
+                    <p className='specific-product-category-label'>Quantity: </p>
                     {sessionUser ?
-                        <form id={product.id} onSubmit={handleSubmit}>
+                        <form className='quantity-form' id={product.id} onSubmit={handleSubmit}>
                             <label>
-                                Quantity:
                                 <select value={quantity} onChange={(e) => setQuantity(e.target.value)}>
                                     {quantities.map((quantity) => {
                                         return (
@@ -79,12 +86,13 @@ export default function ProductDetail() {
                                 </select>
                             </label>
                             <button>Add to Cart</button>
+                            {addedToCart ? <span className='added-to-cart-notify'>You have added {quantity} to your cart!</span> : null}
                         </form> : null}
-                    {addedToCart ? <p>You have added {quantity} to your cart!</p> : null}
+                    {sessionUser && product.owner_id === sessionUser.id ? <OpenModalButton buttonText="Edit" modalComponent={<EditProductModal newProduct={false} />} /> : null}
                 </div>
             </div>
             <div className='specific-product-lower'>
-                <h2>Reviews: </h2>
+                {Object.values(product.comments).length ? <h2>Reviews: </h2> : <h2>No Reviews! (yet)</h2>}
                 {sessionUser && product.owner_id !== sessionUser.id ? <OpenModalButton buttonText="Add Review" modalComponent={<AddReviewModal />} /> : null}
                 {Object.values(product.comments).map((comment) => {
                     return (

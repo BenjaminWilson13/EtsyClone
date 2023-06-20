@@ -11,7 +11,7 @@ export default function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.user);
     const products = useSelector(state => state.cartItems.InCartItems);
     const [errors, setErrors] = useState(null);
-    const [quantity, setQuantity] = useState(null); 
+    const [quantity, setQuantity] = useState(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -59,11 +59,16 @@ export default function ShoppingCart() {
         })
     }
 
+    function handleFakeCheckout(e) {
+        e.preventDefault(); 
+        alert("Feature coming soon!")
+    }
+
     const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     if (!products) return (<div className='shopping-cart-wrapper'>Loading...</div>)
 
-    let total = 0; 
+    let total = 0;
 
     for (let product of Object.values(products)) {
         total += product.price * product.quantity
@@ -73,13 +78,6 @@ export default function ShoppingCart() {
     return (
         <div className='shopping-cart-wrapper'>
             <h1>{Object.values(products).length} item(s) in your cart</h1>
-            {Object.values(products).map((product) => {
-                return (
-                    <div>
-                        {product.name}
-                    </div>
-                )
-            })}
             <div className='shopping-cart-upper'>
                 <div className='cart-items'>
 
@@ -91,18 +89,18 @@ export default function ShoppingCart() {
                                     <img className='product-image' src={product.image_url} />
                                 </div>
                                 <div className='cart-item-box-center'>
-                                    <span>{product.name}</span> <br />
-                                    <span>{product.category}</span> <br />
-                                    <form id={product.id} onSubmit={handleSubmit} >
+                                    <p className='cart-product-name'>{product.name}</p>
+                                    <p className='cart-product-category'>{product.category}</p>
+                                    <form className='cart-quantity-form' id={product.id} onSubmit={handleSubmit} >
                                         <input type='number' max='99' min='1' id={product.id} defaultValue={product.quantity} onChange={(e) => setQuantity(e.target.value)} />
                                         <button type='submit'>Update Quantity</button>
+                                        <button className='delete-button' id={product.id} onClick={handleDelete}>Delete</button>
                                     </form>
-                                    <button id={product.id} onClick={handleDelete}>Delete</button>
-
+                                    <div className='cart-description'>{product.description}</div>
                                 </div>
                                 <div className='cart-item-box-right'>
-                                    <span>${Number.parseFloat(product.price * product.quantity).toFixed(2)}</span> <br />
-                                    {product.quantity > 1 ? <span>(${Number.parseFloat(product.price).toFixed(2)}each)</span> : null}
+                                    <p>Item cost: ${Number.parseFloat(product.price * product.quantity).toFixed(2)}</p>
+                                    {product.quantity > 1 ? <p>(${Number.parseFloat(product.price).toFixed(2)}each)</p> : null}
                                 </div>
                             </div>
                         )
@@ -111,6 +109,15 @@ export default function ShoppingCart() {
                 <div>
                     <span>How you'll pay</span> <br />
                     <span>Total Cost: ${Number.parseFloat(total).toFixed(2)}</span>
+                        <fieldset className='payment-methods'>
+                            <label for='Visa'>Visa</label>
+                            <input type='radio' name='payment' id='Visa'/>
+                            <label for='PayPal'>PayPal</label>
+                            <input type='radio' name='payment' id='PayPal'/>
+                            <label for='E-Check'>E-Check</label>
+                            <input type='radio' name='payment' id='E-Check'/>
+                            <button onClick={handleFakeCheckout}>Checkout</button>
+                        </fieldset>
                 </div>
             </div>
         </div>

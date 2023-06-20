@@ -23,5 +23,4 @@ class ProductForm(FlaskForm):
     description = StringField('description', validators=[DataRequired(message="Description must be between 25 and 2000 characters"), Length(min=25, max=2000, message="Description must be between 25 and 2000 characters long")])
     category = StringField('category', validators=[DataRequired(message="Category is required")])
     owner_id = IntegerField('owner', validators=[DataRequired(), user_exists])
-    image_url = StringField('image', validators=[URL(message="Invalid URL")])
     id = IntegerField('productId')

@@ -11,8 +11,13 @@
   flex-direction: row;
   align-items: center;
   gap: 3rem;
-  width: 1024px;
   margin-top: 2rem;
+  padding-left: 50px;
+  padding-right: 50px; 
+  min-width: 500px; 
+  max-width: 1224px;
+  width: 100%;
+
 }
 
 .site-logo {
@@ -26,18 +31,6 @@
   padding-left: 15px;
 }
 
-.log-button {
-  width: max-content; 
-  height: min-content;  
-  background-color:transparent; 
-  border: none;
-}
-
-.log-button:hover {
-  color: orangered; 
-  cursor: pointer;
-}
-
 .nav-button-box {
   display: flex;
   flex-direction: row;
@@ -45,10 +38,13 @@
 }
 
 .links-box {
-  width: 1024px;
+  min-width: 500px; 
+  max-width: 1224px;
+  width: 100%;
+
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 3rem;
 }
 

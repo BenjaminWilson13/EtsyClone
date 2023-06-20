@@ -33,7 +33,8 @@ export default function SplashPage() {
     }
 
 
-    return (<div className='splash-page-product-box'>
+    return (
+    <div className='splash-page-product-box'>
         {allProducts.map((product) => {
             return (
                 <div key={product.id} className='product-box' onMouseEnter={() => {

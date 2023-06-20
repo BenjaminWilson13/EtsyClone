@@ -18,3 +18,18 @@ html, body {
     align-items: center;
     flex-direction: column;
 }
+
+button {
+    border: none;
+    background-color: orangered;
+    color: white;
+    border-radius: 15px;
+    padding: 10px;
+    cursor: pointer;
+    width: max-content;
+}
+
+button:hover {
+    background-color: gray;
+    color: orangered;
+}

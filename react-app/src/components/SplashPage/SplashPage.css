@@ -4,6 +4,9 @@
     max-width: 1224px;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    padding: 25px;
+    gap: 15px 15px; 
+    height: 100%;
 }
 
 .product-box {
@@ -13,11 +16,13 @@
     border-radius: 15px;
     overflow: hidden;
     cursor: pointer;
+    border: 1px lightgray solid;
 }
 
 .product-box:hover {
     box-shadow: 10px 5px 5px rgb(100, 100, 100);
     z-index: 2;
+    border: none; 
 }
 
 .test {

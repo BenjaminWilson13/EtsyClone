@@ -51,10 +51,20 @@ export const fetchSpecificProduct = (productId) => async (dispatch) => {
 }
 
 export const putEditProduct = (body) => async (dispatch) => {
+    const {name, price, description, category, image_url, owner_id, id} = body; 
+    const formData = new FormData(); 
+
+    formData.append("name", name); 
+    formData.append("price", price); 
+    formData.append("description", description); 
+    formData.append("category", category); 
+    formData.append("image_url", image_url); 
+    formData.append("owner_id", owner_id); 
+    formData.append("id", id); 
+
     const res = await fetch(`/api/products/${body.id}`, {
         method:"PUT", 
-        headers: { "Content-Type": "application/json" }, 
-        body: JSON.stringify(body)
+        body: formData
     })
     const data = await res.json(); 
     if (res.ok) {
@@ -79,10 +89,19 @@ export const deleteProduct = (productId) => async (dispatch) => {
 }
 
 export const postNewProduct = (body) => async (dispatch) => {
+    const {name, price, description, category, image_url, owner_id, id} = body; 
+    const formData = new FormData(); 
+
+    formData.append("name", name); 
+    formData.append("price", price); 
+    formData.append("description", description); 
+    formData.append("category", category); 
+    formData.append("image_url", image_url); 
+    formData.append("owner_id", owner_id); 
+    
     const res = await fetch(`/api/products/`, {
         method: "POST", 
-        headers: { "Content-Type": "application/json" }, 
-        body: JSON.stringify(body)
+        body: formData
     })
     const data = await res.json(); 
     if (res.ok) {

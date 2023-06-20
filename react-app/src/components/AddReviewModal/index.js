@@ -35,22 +35,22 @@ export default function AddReviewModal() {
     }
 
     return (
-        <div className='comment-form-wrapper'>
+        <div className="modal-wrapper">
 
-            <h1>Heyo</h1>
-            <form onSubmit={onSubmit}>
-                <ul className="errors">
+            <h1 className="form-title">Add a Review?</h1>
+            <form className="form-box" onSubmit={onSubmit}>
+                <ul className="errors-list">
                     {errors && Object.values(errors).map((error, idx) => (
                         <li key={idx}>{error}</li>
                     ))}
                 </ul>
-                <label>
+                <label className="form-label">
                     Rating:
-                    <input type='number' minLength={1} min={.5} max={5} step={0.5} value={rating} onChange={(e) => setRating(e.target.value)} />
+                    <input type='number' minLength={1} min={.5} max={5} step={0.5} value={rating} required onChange={(e) => setRating(e.target.value)} />
                 </label>
-                <label>
+                <label className="form-label">
                     Leave your review here:
-                    <textarea value={text} minLength={5} maxLength={2000} onChange={(e) => setText(e.target.value)} />
+                    <textarea  className="form-label" value={text} minLength={5} rows={10} maxLength={2000} required onChange={(e) => setText(e.target.value)} />
                 </label>
                 <button type='submit'>Submit</button>
             </form>

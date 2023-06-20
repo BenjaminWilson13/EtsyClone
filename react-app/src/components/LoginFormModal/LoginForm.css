@@ -1,0 +1,31 @@
+.modal-wrapper {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-title {
+    color: orangered;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    width: 100%;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: inline-block;
+    overflow-wrap: normal;
+    flex-direction: row;
+    width: 100%;
+    justify-items: end;
+}
+
+.form-label > input {
+    width: 100%;
+}
