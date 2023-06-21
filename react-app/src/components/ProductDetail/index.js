@@ -8,6 +8,7 @@ import OpenModalButton from '../OpenModalButton';
 import EditProductModal from '../EditProductModal';
 import { fetchAllShoppingCartItems, increaseProductQuantity } from '../../store/shoppingCart';
 import AddReviewModal from '../AddReviewModal';
+import ProductImageModal from '../ProductImageModal';
 
 export default function ProductDetail() {
     const { productId } = useParams();

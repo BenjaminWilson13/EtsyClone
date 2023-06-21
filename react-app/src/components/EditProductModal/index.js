@@ -88,7 +88,7 @@ export default function EditProductModal({ newProduct }) {
                 </label>
                 <label className="form-label">
                     Description:
-                    <textarea  className="form-label" type='textarea' maxLength={2000} minLength={20} value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <textarea  className="form-label edit-product-text-area" type='textarea' maxLength={2000} minLength={20} value={description} onChange={(e) => setDescription(e.target.value)} />
                     Up to 2000 characters
                 </label>
                 <label className="form-label">

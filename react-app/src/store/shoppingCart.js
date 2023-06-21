@@ -53,7 +53,7 @@ export default function reducer(state = initialState, action) {
     switch(action.type) {
         case GET_ITEMS_IN_CART: 
             newState.InCartItems = {...action.payload}
-            return newState; 
+            return {'InCartItems': {...action.payload}}; 
         default: 
             return state; 
     }

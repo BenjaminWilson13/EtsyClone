@@ -20,6 +20,7 @@ export default function ShoppingCart() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        document.getElementById(`update-button-${e.target.id}`).disabled = true; 
         const product_id = e.target.id;
         const change = quantity - products[product_id].quantity;
         if (change > 0) {
@@ -60,7 +61,7 @@ export default function ShoppingCart() {
     }
 
     function handleFakeCheckout(e) {
-        e.preventDefault(); 
+        e.preventDefault();
         alert("Feature coming soon!")
     }
 
@@ -77,7 +78,7 @@ export default function ShoppingCart() {
 
     return (
         <div className='shopping-cart-wrapper'>
-            <h1>{Object.values(products).length} item(s) in your cart</h1>
+            {Object.values(products).length == 1 ? <h1>{Object.values(products).length} item in your cart</h1> : <h1>{Object.values(products).length} items in your cart</h1>}
             <div className='shopping-cart-upper'>
                 <div className='cart-items'>
 
@@ -92,8 +93,17 @@ export default function ShoppingCart() {
                                     <p className='cart-product-name'>{product.name}</p>
                                     <p className='cart-product-category'>{product.category}</p>
                                     <form className='cart-quantity-form' id={product.id} onSubmit={handleSubmit} >
-                                        <input type='number' max='99' min='1' id={product.id} defaultValue={product.quantity} onChange={(e) => setQuantity(e.target.value)} />
-                                        <button type='submit'>Update Quantity</button>
+                                        <input type='number' max='99' min='1' id={product.id} defaultValue={product.quantity} onChange={(e) => {
+                                            setQuantity(e.target.value)
+                                            const button = document.getElementById(`update-button-${product.id}`);
+                                            console.log(e.target.value == product.quantity)
+                                            if (e.target.value != product.quantity) {
+                                                button.disabled = false;
+                                            } else {
+                                                button.disabled = true;
+                                            }
+                                        }} />
+                                        <button disabled={true} id={`update-button-${product.id}`} type='submit'>Update Quantity</button>
                                         <button className='delete-button' id={product.id} onClick={handleDelete}>Delete</button>
                                     </form>
                                     <div className='cart-description'>{product.description}</div>
@@ -109,15 +119,15 @@ export default function ShoppingCart() {
                 <div>
                     <span>How you'll pay</span> <br />
                     <span>Total Cost: ${Number.parseFloat(total).toFixed(2)}</span>
-                        <fieldset className='payment-methods'>
-                            <label for='Visa'>Visa</label>
-                            <input type='radio' name='payment' id='Visa'/>
-                            <label for='PayPal'>PayPal</label>
-                            <input type='radio' name='payment' id='PayPal'/>
-                            <label for='E-Check'>E-Check</label>
-                            <input type='radio' name='payment' id='E-Check'/>
-                            <button onClick={handleFakeCheckout}>Checkout</button>
-                        </fieldset>
+                    <fieldset className='payment-methods'>
+                        <label for='Visa'>Visa</label>
+                        <input type='radio' name='payment' id='Visa' />
+                        <label for='PayPal'>PayPal</label>
+                        <input type='radio' name='payment' id='PayPal' />
+                        <label for='E-Check'>E-Check</label>
+                        <input type='radio' name='payment' id='E-Check' />
+                        <button onClick={handleFakeCheckout}>Checkout</button>
+                    </fieldset>
                 </div>
             </div>
         </div>
