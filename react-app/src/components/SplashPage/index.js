@@ -27,6 +27,8 @@ export default function SplashPage() {
     } else {
         allProducts = Object.values(AllProducts).filter((product) => {
             if (product.category == category) return true; 
+            if (product.name.toLowerCase().includes(category.toLowerCase())) return true; 
+            if (product.owner_username.toLowerCase().includes(category.toLowerCase())) return true; 
             else return false; 
         })
 

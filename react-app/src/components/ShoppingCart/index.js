@@ -5,14 +5,14 @@ import { deleteProduct, fetchSpecificProduct, postNewProduct, putEditProduct } f
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import "./ShoppingCart.css"
 import { useModal } from '../../context/Modal';
-import { decreaseProductQuantity, fetchAllShoppingCartItems, increaseProductQuantity } from '../../store/shoppingCart';
+import { clear_cart, decreaseProductQuantity, fetchAllShoppingCartItems, increaseProductQuantity } from '../../store/shoppingCart';
 
 export default function ShoppingCart() {
     const sessionUser = useSelector(state => state.session.user);
     const products = useSelector(state => state.cartItems.InCartItems);
     const [errors, setErrors] = useState(null);
-    const [quantity, setQuantity] = useState(null);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(fetchAllShoppingCartItems())
@@ -20,6 +20,7 @@ export default function ShoppingCart() {
 
     function handleSubmit(e) {
         e.preventDefault();
+        const quantity = parseInt(e.target[0].value)
         document.getElementById(`update-button-${e.target.id}`).disabled = true; 
         const product_id = e.target.id;
         const change = quantity - products[product_id].quantity;
@@ -36,7 +37,6 @@ export default function ShoppingCart() {
                 }
             })
         } else if (change <= 0) {
-            console.log(change * -1)
             dispatch(decreaseProductQuantity(product_id, change * -1)).then((data) => {
                 if (data) {
                     setErrors(data)
@@ -50,22 +50,33 @@ export default function ShoppingCart() {
 
     function handleDelete(e) {
         e.preventDefault();
-        const product_id = e.target.id
+        const product_id = e.target.id.slice(14); 
+        console.log(product_id)
         dispatch(decreaseProductQuantity(product_id, products[product_id].quantity)).then((data) => {
             if (data) {
                 setErrors(data)
             } else {
-                dispatch(fetchAllShoppingCartItems())
+                dispatch(fetchAllShoppingCartItems()); 
             }
         })
     }
 
     function handleFakeCheckout(e) {
         e.preventDefault();
+        dispatch(clear_cart()).then((data) => {
+            if (data) {
+                setErrors(data)
+            } else {
+                dispatch(fetchAllShoppingCartItems())
+            }
+        })
         alert("Feature coming soon!")
     }
 
-    const quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const quantities = []; 
+    for (let i = 1; i < 100; i++) {
+        quantities.push(i)
+    }
 
     if (!products) return (<div className='shopping-cart-wrapper'>Loading...</div>)
 
@@ -84,7 +95,7 @@ export default function ShoppingCart() {
 
                     {Object.values(products).map((product) => {
                         return (
-                            <div className='cart-item-box'>
+                            <div key={product.id} className='cart-item-box'>
                                 <div className='cart-item-box-left'>
                                     <h4>Sold by: {product.owner_username}</h4>
                                     <img className='product-image' src={product.image_url} />
@@ -93,10 +104,8 @@ export default function ShoppingCart() {
                                     <p className='cart-product-name'>{product.name}</p>
                                     <p className='cart-product-category'>{product.category}</p>
                                     <form className='cart-quantity-form' id={product.id} onSubmit={handleSubmit} >
-                                        <input type='number' max='99' min='1' id={product.id} defaultValue={product.quantity} onChange={(e) => {
-                                            setQuantity(e.target.value)
+                                        <input type='number' max='99' min='1' defaultValue={product.quantity} onChange={(e) => {
                                             const button = document.getElementById(`update-button-${product.id}`);
-                                            console.log(e.target.value == product.quantity)
                                             if (e.target.value != product.quantity) {
                                                 button.disabled = false;
                                             } else {
@@ -104,7 +113,7 @@ export default function ShoppingCart() {
                                             }
                                         }} />
                                         <button disabled={true} id={`update-button-${product.id}`} type='submit'>Update Quantity</button>
-                                        <button className='delete-button' id={product.id} onClick={handleDelete}>Delete</button>
+                                        <button className='delete-button' id={`delete-button-${product.id}`} onClick={handleDelete}>Delete</button>
                                     </form>
                                     <div className='cart-description'>{product.description}</div>
                                 </div>
@@ -121,7 +130,7 @@ export default function ShoppingCart() {
                     <span>Total Cost: ${Number.parseFloat(total).toFixed(2)}</span>
                     <fieldset className='payment-methods'>
                         <label for='Visa'>Visa</label>
-                        <input type='radio' name='payment' id='Visa' />
+                        <input type='radio' defaultChecked name='payment' id='Visa' />
                         <label for='PayPal'>PayPal</label>
                         <input type='radio' name='payment' id='PayPal' />
                         <label for='E-Check'>E-Check</label>

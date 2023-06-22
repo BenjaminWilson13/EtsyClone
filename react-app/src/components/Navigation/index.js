@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -14,10 +14,22 @@ function Navigation({ isLoaded }) {
 	const sessionUser = useSelector(state => state.session.user);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [searchQuery, setSearchQuery] = useState(''); 
 	const handleLogout = (e) => {
 		e.preventDefault();
 		dispatch(logout());
 	};
+
+	const handleSearch = (e) => {
+		e.preventDefault(); 
+		history.push(`/${searchQuery}`)
+	}
+
+	const handleEnter = (e) => {
+		if (e.key === "Enter") {
+			handleSearch(e)
+		}
+	}
 
 	//categories: Outdoor, Artwork, Jewelry, Automotive, Electronic, Clothing, Collectable
 	const categories = ['All Products', 'Artwork', 'Automotive', 'Clothing', 'Collectable', 'Electronic', 'Jewelry', 'Outdoor']
@@ -26,7 +38,7 @@ function Navigation({ isLoaded }) {
 		<>
 			<div className='nav-box'>
 				<h1 className='site-logo'>Customey</h1>
-				<input className='search-box' type='text' placeholder='Search for Anything' />
+				<input className='search-box' value={searchQuery} type='text' placeholder='Search for Anything' onChange={(e) => setSearchQuery(e.target.value)} onKeyPress={handleEnter}/>
 				<div className='nav-button-box'>
 					{sessionUser ?
 						<>

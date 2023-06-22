@@ -52,3 +52,12 @@ def remove_item_from_cart(product_id, quantity):
         count = count + 1
     db.session.commit()
     return {"message": ["Removed successfully"]}
+
+
+@shopping_cart_routes.route('/clear-cart', methods=["DELETE"])
+def clear_cart(): 
+    cart_list = ShoppingCart.query.filter(ShoppingCart.user_id == current_user.id).all()
+
+    [db.session.delete(item) for item in cart_list]
+    db.session.commit() 
+    return {"Message": ["Cart cleared successfully"]}

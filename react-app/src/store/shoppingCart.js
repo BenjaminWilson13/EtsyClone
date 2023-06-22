@@ -43,6 +43,18 @@ export const decreaseProductQuantity = (product_id, change) => async (dispatch) 
     }
 }
 
+export const clear_cart = () => async (dispatch) => {
+    const res = await fetch(`/api/shoppingCart/clear-cart`, {
+        method: "DELETE"
+    })
+    if (res.ok) {
+        return null; 
+    } else {
+        const data = await res.json(); 
+        return data; 
+    }
+}
+
 
 const initialState = {
     InCartItems: {}
