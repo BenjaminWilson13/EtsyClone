@@ -80,7 +80,7 @@ export default function EditProductModal({ newProduct }) {
                 </ul>
                 <label className="form-label">
                     Product Name:
-                    <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                    <input type='text' value={name} minLength='10' maxLength='50' onChange={(e) => setName(e.target.value)} />
                 </label>
                 <label className="form-label">
                     Price:

@@ -63,3 +63,7 @@
     word-wrap: break-word;
     word-break: break-word;
 }
+
+.comment-box {
+    word-wrap: break-word;
+}

@@ -50,7 +50,7 @@ export default function AddReviewModal() {
                 </label>
                 <label className="form-label">
                     Leave your review here:
-                    <textarea  className="form-label" value={text} minLength={5} rows={10} maxLength={2000} required onChange={(e) => setText(e.target.value)} />
+                    <textarea  className="form-label review-textarea" value={text} minLength={5} rows={10} maxLength={2000} required onChange={(e) => setText(e.target.value)} />
                 </label>
                 <button type='submit'>Submit</button>
             </form>

@@ -25,7 +25,7 @@
 .cart-item-box {
     display: grid;
     width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 33% 53% 15%;
     border: 3px solid lightgray;
     box-shadow: 3px 3px 3px black;
     border-radius: 15px;
@@ -60,6 +60,12 @@
     gap: 10px; 
     max-height: 480px;
     height: fit-content;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.cart-item-box-center > p {
+    width: 100%;
 }
 
 .cart-item-box-right {
