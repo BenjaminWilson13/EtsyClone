@@ -17,7 +17,7 @@
 .shopping-cart-upper {
     width: 100%;
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 75% 25%;
     margin-top: 25px;
     gap: 15px;
 }
@@ -62,6 +62,7 @@
     height: fit-content;
     word-wrap: break-word;
     width: 100%;
+    max-width: 100%;
 }
 
 .cart-item-box-center > p {
