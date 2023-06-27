@@ -20,6 +20,7 @@
     grid-template-columns: 75% 25%;
     margin-top: 25px;
     gap: 15px;
+    justify-items: end;
 }
 
 .cart-item-box {
