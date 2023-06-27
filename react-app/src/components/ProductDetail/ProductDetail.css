@@ -7,6 +7,10 @@
     padding: 25px;
 }
 
+.specific-product-display-wrapper > h1 {
+    word-break: break-word;
+}
+
 .specific-product-upper {
     display: grid;
     grid-template-columns: 1fr 1fr;
