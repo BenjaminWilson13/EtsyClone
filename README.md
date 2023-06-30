@@ -21,7 +21,7 @@
     * A better way to create and store shopping cart data in a database.
 
  * A few skills I improved upon: 
-   * Reusing components for more than on purpose. Many forms were used for both editing and creating data. 
+   * Reusing components for more than one purpose. Many forms were used for both editing and creating data. 
    * Database design. My implementation of the shopping cart in the database was sub-optimal and I've now got a better idea on ways to implement one that are more efficient and easier to work with. 
   
    
